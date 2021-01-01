@@ -6,18 +6,9 @@
 package futoshikiproject;
 
 import Solution.SolveProblem;
-import csp.Graph;
-import csp.ST;
 import java.awt.Color;
-
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -29,13 +20,12 @@ public class FutoshikiInterface extends javax.swing.JFrame {
     /**
      * Creates new form FutoshikiInterface
      */
-    // --- Les variables ---
-    private int dimension = 0; // Dimension choisie par le joueur (4, 5, 6, 7, 8, 9)
-    private int dimGrille = 0; // Dimension de maGrille (= 2 * dimension - 1)
-    private JTextField[][] grille; // La grille en totalité (valeurs et contraintes)
-     private SolveProblem sc ;
-     boolean typeSolver=true;
-     ArrayList<String> var;
+    // --- variables ---
+    private int dimension = 0; // Dimension 4x4,5x5,6x6,7x7,8x8
+    private int dimGrille = 0; // Dimension containing the variables vertical and horizontal constraints
+    private JTextField[][] grille; // Grille containing the variables vertical and horizontal constraints
+    private SolveProblem sc ; //new instance for class Solve problem
+   //  ArrayList<String> var;
     public FutoshikiInterface() {
         
         initComponents();
@@ -136,6 +126,7 @@ public class FutoshikiInterface extends javax.swing.JFrame {
 
         comboLevel.setBackground(new java.awt.Color(0, 102, 102));
         comboLevel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        comboLevel.setForeground(new java.awt.Color(255, 255, 255));
         comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Easy", "Normal", "Tricky", " " }));
         comboLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +168,6 @@ public class FutoshikiInterface extends javax.swing.JFrame {
                         .addComponent(grilleScPan, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(choiceCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,31 +189,16 @@ public class FutoshikiInterface extends javax.swing.JFrame {
 
     private void cleanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanBtnActionPerformed
         // TODO add your handling code here:
-        grillePn.removeAll();
-        grillePn.repaint();
+        //clean game by cleaning panel and grille
+       initialize();
+        
     }//GEN-LAST:event_cleanBtnActionPerformed
 
-    private void verifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyBtnActionPerformed
-        // TODO add your handling code here:
+    public void initialize()
+    {
+        int index = choiceCombo.getSelectedIndex(); // get Combobox value   
         
-        if(sc.verifyContraintes(grille, dimension))
-            System.out.println("Correct");
-        else
-            System.out.println("!!Not correct");
-    }//GEN-LAST:event_verifyBtnActionPerformed
-
-    private void solutionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solutionBtnActionPerformed
-        // TODO add your handling code here:
-
-            ChooseAlgo choice = new ChooseAlgo( dimension, grille, sc, grillePn);
-            choice.setVisible(true);
-
-    }//GEN-LAST:event_solutionBtnActionPerformed
-
-    private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
-        // TODO add your handling code here:
-        int index = choiceCombo.getSelectedIndex(); // On récupère le choix du ComboBox   
-        
+        //get dimension
         switch (index) {
             case 0:
                 dimension = 4;
@@ -249,9 +224,12 @@ public class FutoshikiInterface extends javax.swing.JFrame {
 
         this.dimGrille = 2 * dimension - 1;
         grille = new JTextField[dimGrille][dimGrille];
-        // On efface le panel avant de créer une nouvlle grille
+        
+       //clean game by cleaning panel and grille
         grillePn.removeAll();
         grillePn.repaint();
+        
+        // create JPanel
         switch (dimension) {
             case 4:
                 grillePn.setBounds(grillePn.getX(), grillePn.getY(), 265, 265);
@@ -270,48 +248,70 @@ public class FutoshikiInterface extends javax.swing.JFrame {
                 break;
 
         }
+        
+        //fill the JPanel by JTextFields
         for (int i = 0; i < dimGrille; i++) {
             for (int j = 0; j < dimGrille; j++) {
                 grille[i][j] = new JTextField();
                 grille[i][j].setHorizontalAlignment(JTextField.CENTER);
                 grillePn.add(grille[i][j]);
+                
+                // create JTextField for values 
                 if (i % 2 == 0 && j % 2 == 0) {
                     grille[i][j].setBounds(j * 40, i * 40, 50, 50);
                     grille[i][j].setFont(new Font("Bookman Old Style", Font.BOLD, 24));
                 } else {
+                // create JTextField for constraints
                     grille[i][j].setBounds(j * 40 + 10, i * 40 + 10, 30, 30);
                     grille[i][j].setFont(new Font("", Font.PLAIN, 24));
                     grille[i][j].setBackground(new Color(180,205,219));
                     grille[i][j].setEditable(false);
                 }
+                // disappear some JTextField
                 if (i % 2 != 0 && j % 2 != 0) {
                     grille[i][j].setVisible(false);
                 }
             }
         }
-
+            // get level (easy, normal, triky)
             String level=comboLevel.getSelectedItem().toString();
+            
+            // initialize class SolveProblem
             sc = new SolveProblem(level,grille,dimension);
+            
+            // get grille containt only the values
             grille = sc.getGrille();
             solutionBtn.setEnabled(true);
             verifyBtn.setEnabled(true);
+    }
+    private void verifyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyBtnActionPerformed
+        // TODO add your handling code here:
+        
+        //verify the contraints if is correct or not
+        if(sc.verifyContraintes(grille, dimension))
+            System.out.println("Correct");
+        else
+            System.out.println("!!Not correct");
+    }//GEN-LAST:event_verifyBtnActionPerformed
+
+    private void solutionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solutionBtnActionPerformed
+        // TODO add your handling code here:
+            
+            // display JFrame ChooseAlgo for getting algorithms 
+            ChooseAlgo choice = new ChooseAlgo( dimension, grille, sc, grillePn);
+            choice.setVisible(true);
+
+    }//GEN-LAST:event_solutionBtnActionPerformed
+
+    private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
+        // TODO add your handling code here:
+      initialize();
     }//GEN-LAST:event_startBtnActionPerformed
 
     private void comboLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLevelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboLevelActionPerformed
-    public void UpdatedGrille()
-    {
-        for(int i=0; i<grille.length; i++)
-        {
-            System.out.println("\n");
-            for(int j=0; j<grille.length; j++)
-            {
-                System.out.print(" "+grille[i][j].getText());
-            }
-        }
-        System.out.println("\n");
-    }
+
     /**
      * @param args the command line arguments
      */

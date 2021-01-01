@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Hp EliteBook
+ * @author DAROUYc
  */
 public class ChooseAlgo extends javax.swing.JFrame {
 
@@ -52,9 +52,13 @@ public class ChooseAlgo extends javax.swing.JFrame {
         domainCombo = new javax.swing.JComboBox<>();
         amelCombo = new javax.swing.JComboBox<>();
         chooseBtn = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        comboVariableChoice.setBackground(new java.awt.Color(0, 102, 102));
+        comboVariableChoice.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        comboVariableChoice.setForeground(new java.awt.Color(255, 255, 255));
         comboVariableChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "Degree", "MRV" }));
         comboVariableChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,10 +66,18 @@ public class ChooseAlgo extends javax.swing.JFrame {
             }
         });
 
+        domainCombo.setBackground(new java.awt.Color(0, 102, 102));
+        domainCombo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        domainCombo.setForeground(new java.awt.Color(255, 255, 255));
         domainCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "LCV" }));
 
-        amelCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "forward checking", "AC-1" }));
+        amelCombo.setBackground(new java.awt.Color(0, 102, 102));
+        amelCombo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        amelCombo.setForeground(new java.awt.Color(255, 255, 255));
+        amelCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Forward checking", "AC-1" }));
 
+        chooseBtn.setBackground(new java.awt.Color(153, 153, 0));
+        chooseBtn.setForeground(new java.awt.Color(255, 255, 255));
         chooseBtn.setText("OK ");
         chooseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,34 +85,44 @@ public class ChooseAlgo extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(168, 121, 181));
+        jLabel1.setText("Choose the algorithm to solve");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(amelCombo, 0, 138, Short.MAX_VALUE)
+                    .addComponent(amelCombo, 0, 152, Short.MAX_VALUE)
                     .addComponent(domainCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comboVariableChoice, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(chooseBtn)
-                .addGap(46, 46, 46))
+                .addComponent(chooseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(comboVariableChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboVariableChoice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(domainCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(amelCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(chooseBtn)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -191,5 +213,6 @@ public class ChooseAlgo extends javax.swing.JFrame {
     private javax.swing.JToggleButton chooseBtn;
     private javax.swing.JComboBox<String> comboVariableChoice;
     private javax.swing.JComboBox<String> domainCombo;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

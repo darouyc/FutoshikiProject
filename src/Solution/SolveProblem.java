@@ -455,48 +455,194 @@ public class SolveProblem {
             }
         }
     }
-//    public ArrayList<String> chooseAlgo()
-//    {
-//        ArrayList<String> choice = new ArrayList<String>();
-//        
-//        String[] variableChoice = {"Simple","Degree","MRV",};
-//        String[] domain= {"Simple","LCV"};
-//        String[] amelior={"forward checking","AC-1"};
-//        JComboBox jvC = new JComboBox(variableChoice);
-//        JComboBox jcD = new JComboBox(domain);
-//        JComboBox jcA = new JComboBox(amelior);
-//
-//        jvC.setEditable(true);
-//        jcD.setEditable(true);
-//        jcA.setEditable(true);
-//
-//        //create a JOptionPane
-//        Object[] options = new Object[] {};
-//        JOptionPane jop = new JOptionPane("choisir la methode de résolution",
-//                                        JOptionPane.QUESTION_MESSAGE,
-//                                        JOptionPane.DEFAULT_OPTION);
-//        
-//        //add combos to JOptionPane
-//        jop.add(jvC);
-//        jop.add(jcD);
-//        jop.add(jcA);
-//
-//        //create a JDialog and add JOptionPane to it 
-//        JDialog diag = new JDialog();
-//        diag.getContentPane().add(jop);
-//        diag.pack();
-//        diag.setVisible(true);
-//        choice.add(jvC.getSelectedItem().toString());
-//        choice.add(jcD.getSelectedItem().toString());
-//        choice.add(jcA.getSelectedItem().toString());
-//    
-//        return choice;
-//    }
+
      
     public JTextField[][] easy()
     {
-        JTextField[][] easyGrille = new JTextField[dimGrille][dimGrille];
+        JTextField[][] easyGrille = grille;
         
+         switch (dimension) {
+            case 4:
+                easyGrille[0][1].setText(">");
+                easyGrille[0][1].setEditable(false);;
+                easyGrille[1][2].setText("⋁");
+                easyGrille[1][2].setEditable(false);
+                easyGrille[2][4].setText("1");
+                easyGrille[2][4].setEditable(false);
+                easyGrille[5][4].setText("⋁");
+                easyGrille[5][4].setEditable(false);
+                break;
+            case 5:
+                easyGrille[0][7].setText(">");
+                easyGrille[0][7].setEditable(false);
+                easyGrille[1][0].setText("⋀");
+                easyGrille[1][0].setEditable(false);
+                easyGrille[2][1].setText("<");
+                easyGrille[2][1].setEditable(false);
+                easyGrille[2][2].setText("3");
+                easyGrille[2][2].setEditable(false);
+                easyGrille[4][3].setText("<");
+                easyGrille[4][3].setEditable(false);
+                easyGrille[5][0].setText("⋁");
+                easyGrille[5][0].setEditable(false);
+                easyGrille[5][2].setText("⋁");
+                easyGrille[5][2].setEditable(false);
+                easyGrille[5][6].setText("⋁");
+                easyGrille[5][6].setEditable(false);
+                easyGrille[6][5].setText("<");
+                easyGrille[6][5].setEditable(false);
+                break;
+            case 6:
+                easyGrille[0][4].setText("1");
+                easyGrille[0][4].setEditable(false);
+                easyGrille[1][10].setText("⋀");
+                easyGrille[1][10].setEditable(false);
+                easyGrille[2][2].setText("2");
+                easyGrille[2][2].setEditable(false);
+                easyGrille[3][2].setText("⋀");
+                easyGrille[3][2].setEditable(false);
+                easyGrille[4][6].setText("3");
+                easyGrille[4][6].setEditable(false);
+                easyGrille[4][9].setText(">");
+                easyGrille[4][9].setEditable(false);
+                easyGrille[5][8].setText("⋀");
+                easyGrille[5][8].setEditable(false);
+                easyGrille[7][6].setText("⋁");
+                easyGrille[7][6].setEditable(false);
+                easyGrille[7][8].setText("⋀");
+                easyGrille[7][8].setEditable(false);
+                easyGrille[8][1].setText(">");
+                easyGrille[8][1].setEditable(false);
+                easyGrille[9][2].setText("⋁");
+                easyGrille[9][2].setEditable(false);
+                easyGrille[9][6].setText("⋁");
+                easyGrille[9][6].setEditable(false);
+                easyGrille[10][10].setText("6");
+                easyGrille[10][10].setEditable(false);
+               
+                break;
+            case 7:
+                easyGrille[0][1].setText(">");
+                easyGrille[0][1].setEditable(false);
+                easyGrille[0][4].setText("6");
+                easyGrille[0][4].setEditable(false);
+                easyGrille[0][12].setText("3");
+                easyGrille[0][12].setEditable(false);
+                easyGrille[1][2].setText("⋁");
+                easyGrille[1][2].setEditable(false);
+                easyGrille[1][4].setText("⋁");
+                easyGrille[1][4].setEditable(false);
+                easyGrille[1][8].setText("⋁");
+                easyGrille[1][8].setEditable(false);
+                easyGrille[2][7].setText(">");
+                easyGrille[2][7].setEditable(false);
+                easyGrille[2][9].setText(">");
+                easyGrille[2][9].setEditable(false);
+                easyGrille[2][12].setText("6");
+                easyGrille[2][12].setEditable(false);
+                easyGrille[3][8].setText("⋀");
+                easyGrille[3][8].setEditable(false);
+                easyGrille[4][1].setText(">");
+                easyGrille[4][1].setEditable(false);
+                easyGrille[5][4].setText("⋁");
+                easyGrille[5][4].setEditable(false);
+                easyGrille[5][12].setText("⋁");
+                easyGrille[5][12].setEditable(false);
+                easyGrille[6][3].setText("<");
+                easyGrille[6][3].setEditable(false);
+                easyGrille[6][6].setText("1");
+                easyGrille[6][6].setEditable(false);
+                easyGrille[8][6].setText("7");
+                easyGrille[8][6].setEditable(false);
+                easyGrille[8][11].setText(">");
+                easyGrille[8][11].setEditable(false);
+                easyGrille[9][0].setText("⋀");
+                easyGrille[9][0].setEditable(false);
+                easyGrille[10][5].setText("<");
+                easyGrille[10][5].setEditable(false);
+                easyGrille[10][7].setText(">");
+                easyGrille[10][7].setEditable(false);
+                easyGrille[11][6].setText("⋀");
+                easyGrille[11][6].setEditable(false);
+                easyGrille[11][8].setText("⋁");
+                easyGrille[11][8].setEditable(false);
+               
+                break;
+                case 8:
+                easyGrille[0][5].setText("<");
+                easyGrille[0][5].setEditable(false);
+                easyGrille[0][7].setText(">");
+                easyGrille[0][7].setEditable(false);
+                easyGrille[0][11].setText(">");
+                easyGrille[0][11].setEditable(false);
+                easyGrille[1][2].setText("⋁");
+                easyGrille[1][2].setEditable(false);
+                easyGrille[1][4].setText("⋁");
+                easyGrille[1][4].setEditable(false);
+                easyGrille[1][10].setText("⋁");
+                easyGrille[1][10].setEditable(false);
+                easyGrille[1][12].setText("⋁");
+                easyGrille[1][12].setEditable(false);
+                easyGrille[1][14].setText("⋁");
+                easyGrille[1][14].setEditable(false);
+                easyGrille[2][1].setText("<");
+                easyGrille[2][1].setEditable(false);
+                easyGrille[3][10].setText("⋁");
+                easyGrille[3][10].setEditable(false);
+                easyGrille[3][14].setText("⋁");
+                easyGrille[3][14].setEditable(false);
+                easyGrille[4][3].setText("<");
+                easyGrille[4][3].setEditable(false);
+                easyGrille[4][4].setText("6");
+                easyGrille[4][4].setEditable(false);
+                easyGrille[4][10].setText("4");
+                easyGrille[4][10].setEditable(false);
+                easyGrille[4][13].setText("<");
+                easyGrille[4][13].setEditable(false);
+                easyGrille[5][8].setText("⋀");
+                easyGrille[5][8].setEditable(false);
+                easyGrille[6][2].setText("1");
+                easyGrille[6][2].setEditable(false);
+                easyGrille[6][4].setText("3");
+                easyGrille[6][4].setEditable(false);
+                easyGrille[7][14].setText("⋀");
+                easyGrille[7][14].setEditable(false);
+                easyGrille[8][9].setText("<");
+                easyGrille[8][9].setEditable(false);
+                easyGrille[9][0].setText("⋀");
+                easyGrille[9][0].setEditable(false);
+                easyGrille[9][2].setText("⋀");
+                easyGrille[9][2].setEditable(false);
+                easyGrille[9][6].setText("⋀");
+                easyGrille[9][6].setEditable(false);
+                easyGrille[9][3].setText("<");
+                easyGrille[9][3].setEditable(false);
+                easyGrille[9][13].setText(">");
+                easyGrille[9][13].setEditable(false);
+                easyGrille[10][3].setText("<");
+                easyGrille[10][3].setEditable(false);
+                easyGrille[10][13].setText(">");
+                easyGrille[10][13].setEditable(false);
+                easyGrille[12][3].setText("<");
+                easyGrille[12][3].setEditable(false);
+                easyGrille[12][5].setText("<");
+                easyGrille[12][5].setEditable(false);
+                easyGrille[12][8].setText("4");
+                easyGrille[12][8].setEditable(false);
+                easyGrille[12][11].setText(">");
+                easyGrille[12][11].setEditable(false);
+                easyGrille[12][12].setText("6");
+                easyGrille[12][12].setEditable(false);
+                easyGrille[13][8].setText("⋁");
+                easyGrille[13][8].setEditable(false);
+                easyGrille[13][10].setText("⋀");
+                easyGrille[13][10].setEditable(false);
+                easyGrille[14][5].setText("<");
+                easyGrille[14][5].setEditable(false);
+                
+                
+                break;
+         }
         return easyGrille;
     }
     
@@ -704,8 +850,207 @@ public class SolveProblem {
    
      public JTextField[][] tricky()
     {
-        JTextField[][] trickyGrille = new JTextField[dimGrille][dimGrille];
-        
+        JTextField[][] trickyGrille = grille;
+         switch (dimension) {
+            case 4:
+                trickyGrille[0][3].setText("<");
+                trickyGrille[0][3].setEditable(false);;
+                trickyGrille[2][1].setText(">");
+                trickyGrille[2][1].setEditable(false);
+                trickyGrille[2][5].setText(">");
+                trickyGrille[2][5].setEditable(false);
+                trickyGrille[5][4].setText("⋁");
+                trickyGrille[5][4].setEditable(false);
+                trickyGrille[5][6].setText("⋁");
+                trickyGrille[5][6].setEditable(false);
+                trickyGrille[6][1].setText(">");
+                trickyGrille[6][1].setEditable(false);
+                break;
+            case 5:
+                trickyGrille[0][1].setText("<");
+                trickyGrille[0][1].setEditable(false);
+                trickyGrille[0][3].setText("<");
+                trickyGrille[0][3].setEditable(false);
+                trickyGrille[0][6].setText("4");
+                trickyGrille[0][6].setEditable(false);
+                trickyGrille[0][7].setText(">");
+                trickyGrille[0][7].setEditable(false);
+                trickyGrille[1][8].setText("⋁");
+                trickyGrille[1][8].setEditable(false);
+                trickyGrille[3][4].setText("⋀");
+                trickyGrille[3][4].setEditable(false);
+                trickyGrille[3][6].setText("⋀");
+                trickyGrille[3][6].setEditable(false);
+                trickyGrille[5][6].setText("⋀");
+                trickyGrille[5][6].setEditable(false);
+                trickyGrille[7][8].setText("⋁");
+                trickyGrille[7][8].setEditable(false);
+                trickyGrille[8][1].setText(">");
+                trickyGrille[8][1].setEditable(false);
+                trickyGrille[8][5].setText(">");
+                trickyGrille[8][5].setEditable(false);
+                break;
+            case 6:
+                trickyGrille[0][3].setText("<");
+                trickyGrille[0][3].setEditable(false);
+                trickyGrille[0][9].setText(">");
+                trickyGrille[0][9].setEditable(false);
+                trickyGrille[0][10].setText("4");
+                trickyGrille[0][10].setEditable(false);
+                trickyGrille[1][0].setText("⋁");
+                trickyGrille[1][0].setEditable(false);
+                trickyGrille[1][6].setText("⋀");
+                trickyGrille[1][6].setEditable(false);
+                trickyGrille[1][10].setText("⋀");
+                trickyGrille[1][10].setEditable(false);
+                trickyGrille[2][0].setText("3");
+                trickyGrille[2][0].setEditable(false);
+                trickyGrille[3][2].setText("⋁");
+                trickyGrille[3][2].setEditable(false);
+                trickyGrille[4][1].setText("<");
+                trickyGrille[4][1].setEditable(false);
+                trickyGrille[4][3].setText(">");
+                trickyGrille[4][3].setEditable(false);
+                trickyGrille[4][7].setText(">");
+                trickyGrille[4][7].setEditable(false);
+                trickyGrille[4][9].setText(">");
+                trickyGrille[4][9].setEditable(false);
+                trickyGrille[5][0].setText("⋀");
+                trickyGrille[5][0].setEditable(false);
+                trickyGrille[6][2].setText("3");
+                trickyGrille[6][2].setEditable(false);
+                trickyGrille[6][7].setText("<");
+                trickyGrille[6][7].setEditable(false);
+                trickyGrille[7][2].setText("⋀");
+                trickyGrille[7][2].setEditable(false);
+                trickyGrille[7][4].setText("⋁");
+                trickyGrille[7][4].setEditable(false);
+                trickyGrille[7][10].setText("⋁");
+                trickyGrille[7][10].setEditable(false);
+                trickyGrille[8][5].setText("<");
+                trickyGrille[8][5].setEditable(false);
+                trickyGrille[9][0].setText("⋀");
+                trickyGrille[9][0].setEditable(false);
+                trickyGrille[9][10].setText("⋀");
+                trickyGrille[9][10].setEditable(false);
+    
+    
+                break;
+            case 7:
+                trickyGrille[0][11].setText(">");
+                trickyGrille[0][11].setEditable(false);
+                trickyGrille[1][0].setText("⋁");
+                trickyGrille[1][0].setEditable(false);
+                trickyGrille[1][10].setText("⋀");
+                trickyGrille[1][10].setEditable(false);
+                trickyGrille[2][5].setText(">");
+                trickyGrille[2][5].setEditable(false);
+                trickyGrille[2][7].setText("<");
+                trickyGrille[2][7].setEditable(false);
+                trickyGrille[6][7].setText("<");
+                trickyGrille[6][7].setEditable(false);
+                trickyGrille[6][9].setText("<");
+                trickyGrille[6][9].setEditable(false);
+                trickyGrille[7][0].setText("⋁");
+                trickyGrille[7][0].setEditable(false);
+                trickyGrille[8][3].setText("<");
+                trickyGrille[8][3].setEditable(false);
+                trickyGrille[9][0].setText("⋁");
+                trickyGrille[9][0].setEditable(false);
+                trickyGrille[9][4].setText("⋀");
+                trickyGrille[9][4].setEditable(false);
+                trickyGrille[9][6].setText("⋁");
+                trickyGrille[9][6].setEditable(false);
+                trickyGrille[10][5].setText("<");
+                trickyGrille[10][5].setEditable(false);
+                trickyGrille[10][9].setText(">");
+                trickyGrille[10][9].setEditable(false);
+                trickyGrille[10][11].setText(">");
+                trickyGrille[10][11].setEditable(false);
+                trickyGrille[11][0].setText("⋁");
+                trickyGrille[11][0].setEditable(false);
+                trickyGrille[11][2].setText("⋁");
+                trickyGrille[11][2].setEditable(false);
+                trickyGrille[12][1].setText(">");
+                trickyGrille[12][1].setEditable(false);
+                trickyGrille[12][3].setText(">");
+                trickyGrille[12][3].setEditable(false);
+                trickyGrille[12][5].setText(">");
+                trickyGrille[12][5].setEditable(false);
+                trickyGrille[12][11].setText("<");
+                trickyGrille[12][11].setEditable(false);
+                
+                break;
+                case 8:
+                trickyGrille[1][0].setText("⋀");
+                trickyGrille[1][0].setEditable(false);
+                trickyGrille[1][6].setText("⋁");
+                trickyGrille[1][6].setEditable(false);
+                trickyGrille[1][14].setText("⋁");
+                trickyGrille[1][14].setEditable(false);
+                trickyGrille[2][1].setText("<");
+                trickyGrille[2][1].setEditable(false);
+                trickyGrille[2][2].setText("5");
+                trickyGrille[2][2].setEditable(false);
+                trickyGrille[3][6].setText("⋁");
+                trickyGrille[3][6].setEditable(false);
+                trickyGrille[3][10].setText("⋁");
+                trickyGrille[3][10].setEditable(false);
+                trickyGrille[4][0].setText("5");
+                trickyGrille[4][0].setEditable(false);
+                trickyGrille[4][1].setText(">");
+                trickyGrille[4][1].setEditable(false);
+                trickyGrille[4][12].setText("4");
+                trickyGrille[4][12].setEditable(false);
+                trickyGrille[5][6].setText("⋁");
+                trickyGrille[5][6].setEditable(false);
+                trickyGrille[5][10].setText("⋁");
+                trickyGrille[5][10].setEditable(false);
+                trickyGrille[5][12].setText("⋁");
+                trickyGrille[5][12].setEditable(false);
+                trickyGrille[5][14].setText("⋁");
+                trickyGrille[5][14].setEditable(false);
+                trickyGrille[6][9].setText("<");
+                trickyGrille[6][9].setEditable(false);
+                trickyGrille[7][0].setText("⋀");
+                trickyGrille[7][0].setEditable(false);
+                trickyGrille[7][2].setText("⋀");
+                trickyGrille[7][2].setEditable(false);
+                trickyGrille[7][8].setText("⋁");
+                trickyGrille[7][8].setEditable(false);
+                trickyGrille[8][3].setText("<");
+                trickyGrille[8][3].setEditable(false);
+                trickyGrille[8][5].setText(">");
+                trickyGrille[8][5].setEditable(false);
+                trickyGrille[8][12].setText("1");
+                trickyGrille[8][12].setEditable(false);
+                trickyGrille[8][14].setText("3");
+                trickyGrille[8][14].setEditable(false);
+                trickyGrille[9][14].setText("⋀");
+                trickyGrille[9][14].setEditable(false);
+                trickyGrille[10][10].setText("1");
+                trickyGrille[10][10].setEditable(false);
+                trickyGrille[11][8].setText("⋁");
+                trickyGrille[11][8].setEditable(false);
+                trickyGrille[11][12].setText("⋁");
+                trickyGrille[11][12].setEditable(false);
+                trickyGrille[12][12].setText("7");
+                trickyGrille[12][12].setEditable(false);
+                trickyGrille[13][2].setText("⋀");
+                trickyGrille[13][2].setEditable(false);
+                trickyGrille[13][6].setText("⋁");
+                trickyGrille[13][6].setEditable(false);
+                trickyGrille[13][10].setText("⋀");
+                trickyGrille[13][10].setEditable(false);
+                trickyGrille[14][1].setText("<");
+                trickyGrille[14][1].setEditable(false);
+                trickyGrille[14][2].setText("6");
+                trickyGrille[14][2].setEditable(false);
+                trickyGrille[14][14].setText("5");
+                trickyGrille[14][14].setEditable(false);
+               
+                break;
+        }
         return trickyGrille;
     }
 }
