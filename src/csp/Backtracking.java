@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package csp;
 
 import java.util.ArrayList;
@@ -11,10 +7,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 /**
  *
@@ -29,7 +22,7 @@ class cmpComptage implements Comparator {
 }
 
 public class Backtracking {
-    // --- Variables boolean pour choix d'amélioration du Backtracking ---
+    // --- Variables amélioration Backtracking ---
     public static boolean withDEGREES = false;
     public static boolean withMRV = false;
     public static boolean withLCV = false;
@@ -59,24 +52,24 @@ public class Backtracking {
     public static boolean consistent(String value, String variable, ST<String, String> config, Graph g) {
         for(String adj: g.adjacentTo(variable)) 
         {
-            if(!adj.contains("s") && !adj.contains("i")) // Si l'adjacent n'est ni supérieur ni inférieur
+            if(!adj.contains("s") && !adj.contains("i")) //if adj is neither sup nor inf
             {
                 if(config.get(adj).equalsIgnoreCase(value))
                     return false;
             }
-            else if(adj.contains("s")) // Si l'adjacent est supérieur
+            else if(adj.contains("s")) // if adj is sup
             {
-                String nomSommet = adj.replace("s", "x"); // On remplace "s" par "x" pour pourvoir chercher dans le graphe (les sommets nommés "x")
+                String nomSommet = adj.replace("s", "x"); // Change s to x in graph to access x values in graph
                 if(!config.get(nomSommet).equals(""))
                 {
                     int variableNumber = Integer.parseInt(value);
                     int supNumber = Integer.parseInt(config.get(nomSommet));
 
-                    if(supNumber <= variableNumber) // On compare avec la valeur à fournir
+                    if(supNumber <= variableNumber) // Compare
                         return false;
                 }
             }
-            else // Si l'adjacent est inférieur
+            else // if adj is inf
             {
                 String nomSommet = adj.replace("i", "x");
                 if(!config.get(nomSommet).equals(""))
@@ -84,7 +77,7 @@ public class Backtracking {
                     int variableNumber = Integer.parseInt(value);
                     int infNumber = Integer.parseInt(config.get(nomSommet));
 
-                    if(infNumber > variableNumber)
+                    if(infNumber > variableNumber) // compare
                         return false;
                 }
             }
@@ -125,11 +118,11 @@ public class Backtracking {
     {
         // Stocker (variable, nombre de contraintes)
         TreeMap<String,Integer> compteParVariable = new TreeMap<>();
-        // Table associative triée par ordre décroissant (à cause du - )
+        // Table associative ==>descending order
         for (String var : config)
             if(config.get(var).equalsIgnoreCase(""))
                 compteParVariable.put(var, -g.degree(var)) ;
-        // Mettre sous forme d'une liste puis trier
+        // create list and sort values
         List list = new ArrayList(compteParVariable.entrySet());
         Collections.sort(list, new cmpComptage());
         return ((Map.Entry<String, Integer>)list.get(0)).getKey();
@@ -138,11 +131,11 @@ public class Backtracking {
     public static String getVariableMRV(ST<String, SET<String>> domain , ST<String, String> config){
         // Stocker (variable, taille du domaine)
         TreeMap<String, Integer> compteParVariable = new TreeMap<>();
-        // Table associative triée par ordre croissant
+        // Table associative ==>Ascending order
         for (String var : config)
             if(config.get(var).equalsIgnoreCase(""))
                 compteParVariable.put(var,domain.get(var).size()) ;
-        // Mettre sous forme d'une liste puis trier
+       // create list and sort values
         List list = new ArrayList(compteParVariable.entrySet());
         Collections.sort(list, new cmpComptage());
         return ((Map.Entry<String, Integer>)list.get(0)).getKey();
@@ -154,16 +147,16 @@ public class Backtracking {
         TreeMap<String, Integer> compteParVariable1 = new TreeMap<>();
         // Stocker (variable, nombre de valeurs)
         TreeMap<String, Integer> compteParVariable2 = new TreeMap<>();
-        // Table associative triée par ordre décroissant (à cause du - )
+        // Table associative ==>descending order
         for (String var : config)
             if(config.get(var).equalsIgnoreCase(""))
                 compteParVariable1.put(var, -g.degree(var)) ;
-        // Mettre sous forme d'une liste puis trier
+       // create list and sort values
         List list = new ArrayList(compteParVariable1.entrySet());
         Collections.sort(list, new cmpComptage());
         Integer compte0 = ((Map.Entry<String, Integer>)list.get(0)).getValue();
         Iterator it = list.iterator();
-        // Garder les variables avec le nombre de degrés
+        // register variables with the number of degrees
 
         while(it.hasNext())
         {
@@ -203,7 +196,7 @@ public class Backtracking {
                 n++;
         compteParValeur.put(v,n);
     }
-    // Mettre sous forme d'une liste puis trier
+   // create list and sort values
     List list = new ArrayList(compteParValeur.entrySet());
     Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() 
     {
@@ -213,7 +206,7 @@ public class Backtracking {
             return e1.getValue().compareTo(e2.getValue());
         }
     });
-    // Liste des valeurs
+    // List of values
     List<String> vals = new ArrayList<>();
     Iterator it = list.iterator();
     while(it.hasNext())
@@ -226,7 +219,7 @@ public class Backtracking {
     /*---------------------- Forward Checking ------------------------------*/
     public static SET<String> forwardChecking(String u , String variable , Graph g ,ST<String, String> config ,ST<String, SET<String>> domain )
     { 
-        // Variables touchées
+        // used values
         SET<String> vars = new SET<>();
         for(String adj: g.adjacentTo(variable))
         {
@@ -247,11 +240,11 @@ public class Backtracking {
             changement = false;
             for(String variable : config)
             {
-                if(config.get(variable).equalsIgnoreCase("")) // Pour chaque variable non affectée
+                if(config.get(variable).equalsIgnoreCase("")) // empty values
                 {
                     for(String adj : g.adjacentTo(variable))
                     {
-                        if(config.get(adj).equalsIgnoreCase("")) // Adjacente non affectée
+                        if(config.get(adj).equalsIgnoreCase("")) //empty adj 
                         {
                             // Pour éviter l'erreur : Exception in thread "main"
                             // java.util.ConcurrentModificationException
@@ -262,7 +255,7 @@ public class Backtracking {
                                 // Valeur consistante introuvable
                                 if((adjDomain != null) && (adjDomain.contains(val)) && (adjDomain.size() == 1))
                                 {
-                                    // Supprimer le domaine de la variable
+                                    // drop domain values
                                     domain.get(variable).remove(val);
                                     changement = true;
                                 }
@@ -279,15 +272,13 @@ public class Backtracking {
      
         // -------------------------------------- Backtracking simple --------------------------------------       
         
-        // Arrêter s'il s'agit d'une affectation complete
+        // if the game is finish
         if(complete(config))
                 return config;
         solverMethode(Methode);
         ST<String, String> result = null;
-        //String v = getVariable(config); // Backtracking simple
-        //String v = MVR(domain, config); // En utilisant MVR
         
-        // --- Variable à affecter ---
+        // --- get Values for result ---
         String v = null;
         if(withMRV)
             v = getVariableMRV(domain, config);
@@ -297,24 +288,22 @@ public class Backtracking {
             v = getVariableDegresMRV(g, domain, config);
         else
             v = getVariable(config);
-        // --- Liste des valeurs du domaine de la variable choisie ---
+        // --- list of value in domain for current value ---
         List <String> vu;
         if(withLCV)
             vu = orderDomainValueLCV(v, g, domain);
         else
             vu = orderDomainValue(v, domain);
-        // Domaine de cette variable (liste des valeurs)
-        //SET<String> vu = orderDomainValue(v, domain);
-        // Variables affectées par la vérification en aval
+        // set value 
         SET<String> variablesTouchees = null;
-        // Préparer la sauvegarde des domaines
+        //create tmp domain
         ST<String, SET<String>> tmpDomain = null;
-        // Parcourir la liste des valeurs
+        // get list of values
         for(String u: vu) {
             if(consistent(u, v, config, g)) { // 
                 config.put(v, u); //
                 aff(config);
-                // Sauvegarde des domaines
+                // register domaines
                 if(withAC1 || withFC)
                 {
                     tmpDomain = new ST<>();
@@ -331,7 +320,7 @@ public class Backtracking {
                 if(result != null)
                     return result;
 
-                config.put(v,""); // X config.remove(v)
+                config.put(v,""); 
                 if(withFC)
                     for(String var : variablesTouchees)
                         domain.get(var).add(u);
@@ -340,6 +329,7 @@ public class Backtracking {
         return null;
     }
     
+    //choose algorithm to solve game
     public static void solverMethode(ArrayList<String> Methode)
     {
         if(Methode.contains("Degree"))

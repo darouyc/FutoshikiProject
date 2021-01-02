@@ -20,6 +20,8 @@ public class ChooseAlgo extends javax.swing.JFrame {
     /**
      * Creates new form ChooseAlgo
      */
+    
+    //variables
     int dimension;
     JTextField[][]  grille; 
     SolveProblem sc; 
@@ -30,7 +32,9 @@ public class ChooseAlgo extends javax.swing.JFrame {
     }
     public ChooseAlgo(int dimension, JTextField [][] grille, SolveProblem sc,JPanel grillePn) {
          initComponents();
+         // center JFrame
          setLocationRelativeTo(null);
+         // Initialize values
         this.dimension = dimension;
         this.grille = grille;
         this.sc = sc;
@@ -135,31 +139,36 @@ public class ChooseAlgo extends javax.swing.JFrame {
     private void chooseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseBtnActionPerformed
         // TODO add your handling code here:
         
+        //get Algorithm 
         ArrayList<String> choice = new ArrayList<>();
         choice.add((String) comboVariableChoice.getSelectedItem());
         choice.add((String) domainCombo.getSelectedItem());
         choice.add((String) amelCombo.getSelectedItem());
+        
+        // get result 
          ST<String, String> result=sc.solve(choice); 
                 if(result!=null)
         {
-            for (int i = 0; i < dimension; i++) // Ligne
+            // Display result
+            for (int i = 0; i < dimension; i++) // Line
          {
              System.out.println("");
-             for (int j = 0; j < dimension; j++) // Colonne
+             for (int j = 0; j < dimension; j++) // Column
              {
-                 if (i % 2 == 0 && j % 2 == 0) {
-                     //System.out.println("2 pairs : i = " + i + " et j = " + j + "\n ---- val = " + config.get("x"+i+""+j));
+                 if (i % 2 == 0 && j % 2 == 0) 
+                 {
                      grille[i * 2][j * 2].setText(result.get("x" + i + "" + j));
                      grille[i * 2][j * 2].setEditable(false);
-                 } else if (i % 2 == 0 && j % 2 != 0) {
-                     //System.out.println("1 pair, 1 impair : i = " + i + " et j = " + j + "\n ---- val = " + config.get("x"+i+""+j));
+                 } else if (i % 2 == 0 && j % 2 != 0) 
+                 {
                      grille[i * 2][j * 2].setText(result.get("x" + i + "" + j));
                      grille[i * 2][j * 2].setEditable(false);
-                 } else if (i % 2 != 0 && j % 2 == 0) {
-                     //System.out.println("1 impair, 1 pair : i = " + i + " et j = " + j + "\n ---- val = " + config.get("x"+i+""+j));
+                 } else if (i % 2 != 0 && j % 2 == 0) 
+                 {
                      grille[i * 2][j * 2].setText(result.get("x" + i + "" + j));
                      grille[i * 2][j * 2].setEditable(false);
-                 } else if (i % 2 != 0 && j % 2 != 0) {
+                 } else if (i % 2 != 0 && j % 2 != 0) 
+                 {
                      grille[i * 2][j * 2].setText(result.get("x" + i + "" + j));
                      grille[i * 2][j * 2].setEditable(false);
                  }
@@ -170,6 +179,7 @@ public class ChooseAlgo extends javax.swing.JFrame {
         }else{
         System.out.println("pas de solution");
         }
+                //disappear ChooseAlgo JFrame
                 dispose();
     }//GEN-LAST:event_chooseBtnActionPerformed
 

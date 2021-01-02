@@ -37,11 +37,13 @@ public class SolveProblem {
     ArrayList<String> choices;
 
     public SolveProblem(String level, JTextField[][] grille, int dimension) {
-        // --- Initialisation des matrices des valeurs et des contraintes horizontales et verticales ---      
+        // --- Initialize grille values and constraint      
         this.dimension = dimension;
         dimGrille = 2 * dimension - 1;
         this.grille = grille;
         System.out.println("dimension de grille "+ dimGrille);
+        
+        // initialize level
         if(level.equalsIgnoreCase("easy"))
         {
              this.grille = easy();
@@ -51,74 +53,81 @@ public class SolveProblem {
         }else{
             this.grille = tricky();
         }
-       
+         
+        //separate global grille to 3 grilles
         this.valGrille = new int[dimension][dimension];
         this.contraintesHoriz = new char[dimension][dimension - 1];
         this.contraintesVert = new char[dimension - 1][dimension];
         
+     
         newGrille();
-//          for (int i = 0; i < dimension; i++) {
-//            for (int j = 0; j < dimension - 1; j++) {
-//                System.out.println("*********" + contraintesHoriz[i][j]+" i "+i+" j "+j);
-//            }
-//        }
-        
     }
-
+    
     public int getDimension() {
         return dimension;
     }
     
-    public void setSimpleBacktracking(boolean typeSolver)
-    {
-        simpleBacktracking=typeSolver;
-    }
     public JTextField[][] getGrille() {
         return grille;
     }
-
+    
     public void setDimension(int dimension) {
         this.dimension = dimension;
     }
 
     public void setGrille(JTextField[][] grille) {
         this.grille = grille;
-        //  newGrille();
     }
-
-    public boolean verifyContraintes(JTextField[][] grille, int dimension) {
-        // --- On récupère et on vérifie ce qui est inséré dans la case ---
-        for (int i = 0; i < dimGrille; i++) {
-            for (int j = 0; j < dimGrille; j++) {
-                if (!grille[i][j].getText().equals("")) {
-                    if (i % 2 == 0 && j % 2 == 0) {
+    
+    // correct the mistakes  made by player
+    public boolean verifyConstraints(JTextField[][] grille, int dimension) {
+        
+    // --- get values and verify constraints
+        for (int i = 0; i < dimGrille; i++) 
+        {
+            for (int j = 0; j < dimGrille; j++) 
+            {
+                if (!grille[i][j].getText().equals("")) 
+                {    
+                    // verify inputs values
+                    if (i % 2 == 0 && j % 2 == 0) 
+                    {
                         try {
+                            
+                            //verify domain
                             int val = Integer.parseInt(grille[i][j].getText());
-                            if (val < 1 || val > dimension) {
-                                JOptionPane.showMessageDialog(null, "La valeur " + val + " insérée dans la cellule [" + i + ", " + j + "] n'appartient pas au domaine des valeurs possibles !");
+                            if (val < 1 || val > dimension) 
+                            {
+                                JOptionPane.showMessageDialog(null, "The value " + val + " in cell [" + i + ", " + j + "] is not in domain !");
 
                                 return false;
                             }
                             valGrille[i / 2][j / 2] = val;
                         } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(null, "Vous devez saisir un nombre dans la cellule [" + i + "," + j + "] !");
+                            JOptionPane.showMessageDialog(null, "Cell is empty [" + i + "," + j + "] !");
                             ex.printStackTrace();
                             return false;
                         }
-                    } // --- Les contraintes horizontales : < et > ---
-                    else if (i % 2 == 0 && j % 2 != 0) {
+                    } 
+                    // --- Horizontal constaints : < et > ---
+                    else if (i % 2 == 0 && j % 2 != 0) 
+                    {
                         char contrHoriz = grille[i][j].getText().charAt(0);
-                        if (!(contrHoriz == '<' || contrHoriz == '>')) {
-                            JOptionPane.showMessageDialog(null, "Le signe insérée dans la cellule [" + (i + 1) + ", " + (j + 1) + "] n'est pas une contrainte (doit être '<' ou '>') !");
+                        if (!(contrHoriz == '<' || contrHoriz == '>')) 
+                        {
+                            JOptionPane.showMessageDialog(null, "the character in [" + (i + 1) + ", " + (j + 1) + "] not correct (must be '<' or '>') !");
                             return false;
                         }
                         contraintesHoriz[i / 2][(j - 1) / 2] = contrHoriz;
-                        // System.out.println("contrVert"+contrHoriz);
-                    } // ---- Les contraintes verticales : ⋀ et ⋁ ---
-                    else if (i % 2 != 0 && j % 2 == 0) {
+                        
+                    } 
+                    // ---- Vertical constraints : ⋀ et ⋁ ---
+                    else if (i % 2 != 0 && j % 2 == 0) 
+                    {
                         char contrVert = grille[i][j].getText().charAt(0);
-                        if (!(contrVert == '⋀' || contrVert == '⋁')) {
-                            JOptionPane.showMessageDialog(null, "Le signe insérée dans la cellule [" + (i + 1) + ", " + (j + 1) + "] n'est pas une contrainte (doit être '^' ou 'v') !");
+                        if (!(contrVert == '⋀' || contrVert == '⋁')) 
+                        {
+                            JOptionPane.showMessageDialog(null, "the character in [" + (i + 1) + ", " + (j + 1) + "] not correct (must be '^' ou 'v') !");
                             return false;
                         }
                         contraintesVert[(i - 1) / 2][j / 2] = contrVert;
@@ -128,56 +137,56 @@ public class SolveProblem {
             }
         }
 
-        // --- Vérification des contraintes entre colonnes et lignes ---
+        // Verify constaint between lines and columns 
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 int val = valGrille[i][j];
-                if (val != 0) // Si la cellule contient un nombre
+                if (val != 0) 
                 {
-                    // --- Comparaison de la valeur avec la colonne ---
+                    //Compare by column
                     for (int row = 0; row < dimension; row++) {
-                        if (row != i) // Si on n'est pas dans la même ligne, pour ne pas comparer avec la même cellule
+                        if (row != i) 
                         {
-                            if (val == valGrille[row][j]) // Si on trouve une cellule contenant la même valeur
+                            if (val == valGrille[row][j]) // if it's same value
                             {
-                                JOptionPane.showMessageDialog(null, "La valeur de la cellule [" + (i + 1) + ", " + (j + 1) + "] est doublé dans cette colonne (la cellule [" + (row + 1) + ", " + (j + 1) + "]) !");
+                                JOptionPane.showMessageDialog(null, "Cell [" + (i + 1) + ", " + (j + 1) + "] it's repeated in the same column (cell [" + (row + 1) + ", " + (j + 1) + "]) !");
                                 return false;
                             }
                         }
                     }
-                    // --- Comparaison de la valeur avec la ligne ---
+                    // Compare by lines
                     for (int col = 0; col < dimension; col++) {
-                        if (col != j) // Si on n'est pas dans la même colonne, pour ne pas comparer avec la même cellule
+                        if (col != j) 
                         {
-                            if (val == valGrille[i][col]) // Si on trouve un cellule contenant la même valeur
+                            if (val == valGrille[i][col]) //if it's same value
                             {
-                                JOptionPane.showMessageDialog(null, "La valeur de la cellule [" + (i + 1) + ", " + (j + 1) + "] est doublé dans cette ligne (la cellule [" + (i + 1) + ", " + (col + 1) + "]) !");
+                                JOptionPane.showMessageDialog(null, "Cell [" + (i + 1) + ", " + (j + 1) + "] it's repeated in the same line (cell [" + (i + 1) + ", " + (col + 1) + "]) !");
                                 return false;
                             }
                         }
                     }
-                    // --- Vérification des signes entre les cellules horrizontes : > et < ---
-                    /* --- Comparaison de la cellule avec la cellule à gauche ---*/
-                    if (j != 0) // Puisque la grille des contraintes horizontales est de nbre de colonne = dimension - 1, j doit être >= 1
+                    // Verify constaint between horizontal cell  > et < 
+                    // Left side ;
+                    if (j != 0) 
                     {
-                        if (contraintesHoriz[i][j - 1] != ' ') // Si la case contient un signe
+                        if (contraintesHoriz[i][j - 1] != ' ') // if cell not empty
                         {
 
-                            if (valGrille[i][j - 1] != 0) // Si la case à gauche contient un nombre
+                            if (valGrille[i][j - 1] != 0) // if left cell not empty
                             {
-                                switch (contraintesHoriz[i][j - 1]) // Deux cas : '<' et '>'
+                                switch (contraintesHoriz[i][j - 1]) // '<' and '>'
                                 {
                                     case '>':
-                                        if (valGrille[i][j - 1] < val) // Si la valeur est inférieure à la cellule à gauche
+                                        if (valGrille[i][j - 1] < val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est > à la valeur " + valGrille[i][j - 1] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i + 1) + ", " + (j) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + "  > value " + valGrille[i][j - 1] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i + 1) + ", " + (j) + "]) !");
                                             return false;
                                         }
                                         break;
                                     case '<':
-                                        if (valGrille[i][j - 1] > val) // Si la valeur est supérieure à la cellule à gauche
+                                        if (valGrille[i][j - 1] > val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est < à la valeur " + valGrille[i][j - 1] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i + 1) + ", " + (j) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + "  < value " + valGrille[i][j - 1] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i + 1) + ", " + (j) + "]) !");
                                             return false;
                                         }
                                         break;
@@ -185,27 +194,27 @@ public class SolveProblem {
                             }
                         }
                     }
-                    /* --- Comparaison de la cellule avec la cellule à droite ---*/
-                    if (j != dimension - 1) // Puisque la grille des contraintes horizontales est de nbre de colonne = dimension - 1
+                    //Right side
+                    if (j != dimension - 1) 
                     {
-                        if (contraintesHoriz[i][j] != ' ') // Si la case contient un signe
+                        if (contraintesHoriz[i][j] != ' ') // if cell not empty
                         {
 
-                            if (valGrille[i][j + 1] != 0) // Si la case à droite contient un nombre
+                            if (valGrille[i][j + 1] != 0) // if right cell not empty
                             {
-                                switch (contraintesHoriz[i][j]) // Deux cas : '<' et '>'
+                                switch (contraintesHoriz[i][j]) // '<' and '>'
                                 {
                                     case '>':
-                                        if (valGrille[i][j + 1] > val) // Si la valeur est inférieure à la cellule à droite
+                                        if (valGrille[i][j + 1] > val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est < à la valeur " + valGrille[i][j + 1] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i + 1) + ", " + (j) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value" + val + " < value " + valGrille[i][j + 1] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i + 1) + ", " + (j) + "]) !");
                                             return false;
                                         }
                                         break;
                                     case '<':
-                                        if (valGrille[i][j + 1] < val) // Si la valeur est supérieure à la cellule à droite
+                                        if (valGrille[i][j + 1] < val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est > à la valeur " + valGrille[i][j + 1] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i + 1) + ", " + (j) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + " value " + valGrille[i][j + 1] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i + 1) + ", " + (j) + "]) !");
                                             return false;
                                         }
                                         break;
@@ -213,28 +222,28 @@ public class SolveProblem {
                             }
                         }
                     }
-                    // --- Vérification des signes entre les cellules verticales : ⋀ et ⋁ ---
-                    /* --- Comparaison de la cellule avec la cellule en haut ---*/
-                    if (i != 0) // Puisque la grille des contraintes verticales est de nbre de ligne = dimension - 1, i doit être >= 1
+                    // Verify constaint between vertical cell : ⋀ et ⋁ 
+                    // Top
+                    if (i != 0) 
                     {
-                        if (contraintesVert[i - 1][j] != ' ') // Si la case contient un signe
+                        if (contraintesVert[i - 1][j] != ' ') //if cell not empty
                         {
 
-                            if (valGrille[i - 1][j] != 0) // Si la case en haut contient un nombre
+                            if (valGrille[i - 1][j] != 0) // if top cell not empty
                             {
-                                switch (contraintesVert[i - 1][j]) // Deux cas : '⋀' et '⋁'
+                                switch (contraintesVert[i - 1][j]) //  '⋀' and '⋁'
                                 {
                                     case '⋀':
-                                        if (valGrille[i - 1][j] > val) // Si la valeur est inférieure à la cellule en haut
+                                        if (valGrille[i - 1][j] > val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est < à la valeur " + valGrille[i - 1][j] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i) + ", " + (j + 1) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + "  < value " + valGrille[i - 1][j] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i) + ", " + (j + 1) + "]) !");
                                             return false;
                                         }
                                         break;
                                     case '⋁':
-                                        if (valGrille[i - 1][j] < val) // Si la valeur est supérieure à la cellule en haut
+                                        if (valGrille[i - 1][j] < val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est > à la valeur " + valGrille[i - 1][j] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i) + ", " + (j + 1) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + " > value " + valGrille[i - 1][j] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i) + ", " + (j + 1) + "]) !");
                                             return false;
                                         }
                                         break;
@@ -242,27 +251,27 @@ public class SolveProblem {
                             }
                         }
                     }
-                    /* --- Comparaison de la cellule avec la cellule en bas ---*/
-                    if (i != dimension - 1) // Puisque la grille des contraintes verticales est de nbre de ligne = dimension - 1
+                    // low
+                    if (i != dimension - 1) 
                     {
-                        if (contraintesVert[i][j] != ' ') // Si la case contient un signe
+                        if (contraintesVert[i][j] != ' ') //if cell not empty
                         {
 
-                            if (valGrille[i + 1][j] != 0) // Si la case en bas contient un nombre
+                            if (valGrille[i + 1][j] != 0) // if low cell not empty
                             {
-                                switch (contraintesVert[i][j]) // Deux cas : '⋀' et '⋁'
+                                switch (contraintesVert[i][j]) // '⋀' and '⋁'
                                 {
                                     case '⋀':
-                                        if (valGrille[i + 1][j] < val) // Si la valeur est supérieure à la cellule en bas
+                                        if (valGrille[i + 1][j] < val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est > à la valeur " + valGrille[i + 1][j] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i) + ", " + (j + 1) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + "  > value " + valGrille[i + 1][j] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i) + ", " + (j + 1) + "]) !");
                                             return false;
                                         }
                                         break;
                                     case '⋁':
-                                        if (valGrille[i + 1][j] > val) // Si la valeur est inférieure à la cellule en bas
+                                        if (valGrille[i + 1][j] > val) 
                                         {
-                                            JOptionPane.showMessageDialog(null, "La valeur " + val + " est > à la valeur " + valGrille[i + 1][j] + "\n (cellule [" + (i + 1) + ", " + (j + 1) + "] et [" + (i) + ", " + (j + 1) + "]) !");
+                                            JOptionPane.showMessageDialog(null, "Value " + val + " > value " + valGrille[i + 1][j] + "\n (cell [" + (i + 1) + ", " + (j + 1) + "] and [" + (i) + ", " + (j + 1) + "]) !");
                                             return false;
                                         }
                                         break;
@@ -278,69 +287,74 @@ public class SolveProblem {
     }
 
     public ST<String, SET<String>> getDomain() {
-        // --- Contraintes des lignes ---
-        for (int i = 0; i < dimension; i++) // Ligne
+        // --- Lines constraints ---
+        for (int i = 0; i < dimension; i++) // Line
         {
-            for (int j = 0; j < dimension - 1; j++) // Colonne
+            for (int j = 0; j < dimension - 1; j++) // Column
             {
                 for (int k = j + 1; k < dimension; k++) {
-                    //System.out.println("i = " + i + ", j = " + j + ", k = " + k);
-                    String val1 = "x" + i + "" + j;//String.valueOf(valGrille[i][j]);
-                    String val2 = "x" + i + "" + k;//String.valueOf(valGrille[i][k]);
+                    String val1 = "x" + i + "" + j;
+                    String val2 = "x" + i + "" + k;
+                    // make relation between horizontal cell
                     graph.addEdge(val1, val2);
                 }
             }
         }
-        // --- Contraintes des colonnes ---
-        for (int i = 0; i < dimension; i++) { // Colonne
-            for (int j = 0; j < dimension; j++) { // Ligne
+        // --- Columns constraints ---
+        for (int i = 0; i < dimension; i++) { // Column
+            for (int j = 0; j < dimension; j++) { // Line
                 for (int k = j + 1; k < dimension; k++) {
-                    //System.out.println("i = " + i + ", j = " + j + ", k = " + k);
-                    String val1 = "x" + j + "" + i;//String.valueOf(valGrille[j][i]);
-                    String val2 = "x" + k + "" + i;//String.valueOf(valGrille[k][i]);
+                    String val1 = "x" + j + "" + i;
+                    String val2 = "x" + k + "" + i;
+                    // make relation between vertical cell
                     graph.addEdge(val2, val1);
                 }
 
                 System.out.println("At " + i + "," + j);
-
+                
+                // check vertical constraint if is not empty plus column is not first
                 if (i > 0 && (contraintesVert[i - 1][j] == '⋀' || contraintesVert[i - 1][j] == '⋁')) {
                     System.out.println("Found contraites vert1 at " + i + "," + j + " = " + contraintesVert[i - 1][j]);
 
                     boolean cond = contraintesVert[i - 1][j] != '⋀';
-
+                    
                     String val1 = cond ? "s" + (i - 1) + "" + j : "s" + i + "" + j;
                     String val2 = cond ? "x" + i + "" + j : "x" + (i - 1) + "" + j;
-
+                    
+                    // register sup value with 'S' character in graph
                     graph.addEdge(val2, val1);
-
+                    
+                    //register inf value with 'i' character in graph
                     val1 = val1.replace("s", "x");
                     val2 = val2.replace("x", "i");
 
                     graph.addEdge(val1, val2);
 
                 }
-
+                  // check vertical constraint if is not empty plus column is not first
                 if (i < dimension - 1 && (contraintesVert[i][j] == '⋀' || contraintesVert[i][j] == '⋁')) {
                     System.out.println("Found contraites vert2 at " + i + "," + j + " = " + contraintesVert[i][j]);
 
                     boolean cond = contraintesVert[i][j] != '⋀';
-
+                    
+                    // register sup value with 'S' character in graph
                     String val1 = cond ? "s" + i + "" + j : "s" + (i + 1) + "" + j;
                     String val2 = cond ? "x" + (i + 1) + "" + j : "x" + i + "" + j;
 
                     graph.addEdge(val2, val1);
-
+                    
+                    //register inf value with 'i' character in graph
                     val1 = val1.replace("s", "x");
                     val2 = val2.replace("x", "i");
 
                     graph.addEdge(val1, val2);
                 }
-
+                 // check horizantal constraint if is not empty plus line is not first
                 if (j < dimension - 1 && (contraintesHoriz[i][j] == '<' || contraintesHoriz[i][j] == '>')) {
                     System.out.println("Found contraites at " + i + "," + j + " = " + contraintesHoriz[i][j]);
 
                     boolean cond = contraintesHoriz[i][j] == '<';
-                     //   System.out.println("/////////"+contraintesHoriz[i][j]);
+                     // register sup value with 'S' character in graph
                     String val1 = cond ? "s" + i + "" + (j + 1) : "s" + i + "" + j;
                     String val2 = cond ? "x" + i + "" + j : "x" + i + "" + ( j + 1 );
 
@@ -348,15 +362,16 @@ public class SolveProblem {
 
                     val1 = val1.replace("s", "x");
                     val2 = val2.replace("x", "i");
-
+                     //register inf value with 'i' character in graph
                     graph.addEdge(val1, val2);
                 }
-
+                
+                 // check horizantal constraint if is not empty plus line is not first
                 if (j > 0 && (contraintesHoriz[i][j - 1] == '<' || contraintesHoriz[i][j - 1] == '>')) {
                     System.out.println("Found horiz contraites at " + i + "," + j + " = " + contraintesHoriz[i][j - 1]);
 
                     boolean cond = contraintesHoriz[i][j - 1] == '<';
-
+                     // register sup value with 'S' character in graph
                     String val1 = cond ? "s" + i + "" + j : "s" + i + "" + ( j - 1);
                     String val2 = cond ? "x" + i + "" + ( j - 1) : "x" + i + "" + j;
 
@@ -364,17 +379,16 @@ public class SolveProblem {
 
                     val1 = val1.replace("s", "x");
                     val2 = val2.replace("x", "i");
-
+                     //register inf value with 'i' character in graph
                     graph.addEdge(val1, val2);
                 }
             }
         }
 
-        // --- Table des domaines ---
+        // --- Domain ---
         domainTable = new ST<String, SET<String>>();
-        // --- Remplissage des domaines ---
         Object[][] domains = new Object[dimension][dimension];
-        // --- Initialisation des domaines --- 
+        // --- Initialization of domains--- 
         for (int i = 0; i < dimension; i++) // Colonne
         {
             for (int j = 0; j < dimension; j++) // Ligne
@@ -382,10 +396,10 @@ public class SolveProblem {
                 domains[i][j] = new SET<String>();
             }
         }
-        // --- Attribuer les domaines aux valeurs de la grille (1) : sans considérer les contraintes de signes ---
-        for (int i = 0; i < dimension; i++) // Colonne
+        // --- Add values to domain  ---
+        for (int i = 0; i < dimension; i++) // Column
         {
-            for (int j = 0; j < dimension; j++) // Ligne
+            for (int j = 0; j < dimension; j++) // Line
             {
                 if (valGrille[i][j] != 0) {
                     ((SET<String>) domains[i][j]).add(new String(String.valueOf(valGrille[i][j]))); // Domaine avec une seule valeur (case remplie)
@@ -396,25 +410,26 @@ public class SolveProblem {
                 }
             }
         }
-        // --- Ajout des domaines à la table ---
+        // --- Add domain to table---
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 domainTable.put("x" + i + "" + j, ((SET<String>) domains[i][j]));
             }
         }
-        // --- Affichage des domaines de chaque cellule ---
+        // --- Display domain ---
         System.out.println("\nLa table des domaines est : ");
         Set<String> keys = (Set<String>) domainTable.getST().keySet();
         for (String key : keys) {
             System.out.println("Le domaine de " + key + " est: " + domainTable.getST().get(key));
         }
-        // --- Configuration initiale ---
+        
+        // --- initialize configuration ---
         config = new ST<String, String>();
-        for (int i = 0; i < dimension; i++) // Ligne 
+        for (int i = 0; i < dimension; i++) // Line 
         {
-            for (int j = 0; j < dimension; j++) // Colonne
+            for (int j = 0; j < dimension; j++) // Column
             {
-                this.config.put("x" + i + "" + j, ""); // Variables non affectées
+                this.config.put("x" + i + "" + j, ""); // empty cell
             }
         }
 
@@ -423,12 +438,13 @@ public class SolveProblem {
 
     public ST<String, String> solve(ArrayList<String> var) {
         choices=var;
-        // --- Appliquer l'algorithme du Backtracking pour calculer le solution ---
+        //use backtracking for getting solution
         Backtracking backtracking = new Backtracking();
         domainTable = getDomain();
         System.out.println("Constraints: ");
         System.out.println(graph);
         
+        // get solution from backtracking
         ST<String, String> result = backtracking.backtracking(this.config, domainTable, graph,choices);
 
         return result;
@@ -438,15 +454,18 @@ public class SolveProblem {
     public void newGrille() {
         for (int i = 0; i < dimGrille; i++) {
             for (int j = 0; j < dimGrille; j++) {
+                //get grille of values
                 if (!grille[i][j].getText().equals("")) {
                     if (i % 2 == 0 && j % 2 == 0) {
                         int val = Integer.parseInt(grille[i][j].getText());
                         valGrille[i / 2][j / 2] = val;
-                    } else if (i % 2 == 0 && j % 2 != 0) {
+                    } //get grille of horizontal constraint 
+                    else if (i % 2 == 0 && j % 2 != 0) {
                         char contrHoriz = grille[i][j].getText().charAt(0);
                         contraintesHoriz[i / 2][ (j - 1) /2] = contrHoriz;
                         System.out.println(" " + contrHoriz + " i " + i + " j " + j);
-                    } else if (i % 2 != 0 && j % 2 == 0) {
+                    }//get grille of vertical constraint  
+                    else if (i % 2 != 0 && j % 2 == 0) {
                         char contrVert = grille[i][j].getText().charAt(0);
                         contraintesVert[(i - 1) / 2][j / 2] = contrVert;
                         System.out.println(" " + contrVert + " i " + i + " j ");
@@ -456,7 +475,7 @@ public class SolveProblem {
         }
     }
 
-     
+    // get grille of easy level 
     public JTextField[][] easy()
     {
         JTextField[][] easyGrille = grille;
@@ -646,6 +665,7 @@ public class SolveProblem {
         return easyGrille;
     }
     
+    // get grille of normal level 
     public JTextField[][] normal()
     {
        JTextField[][] normalGrille =grille;
@@ -848,6 +868,7 @@ public class SolveProblem {
        return normalGrille;
     }
    
+    // get grille of tricky level 
      public JTextField[][] tricky()
     {
         JTextField[][] trickyGrille = grille;

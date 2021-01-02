@@ -8,7 +8,6 @@ package futoshikiproject;
 import Solution.SolveProblem;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 import javax.swing.JTextField;
 
 /**
@@ -80,7 +79,7 @@ public class FutoshikiInterface extends javax.swing.JFrame {
         cleanBtn.setBackground(new java.awt.Color(153, 153, 0));
         cleanBtn.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
         cleanBtn.setForeground(new java.awt.Color(255, 255, 255));
-        cleanBtn.setText("Clean");
+        cleanBtn.setText("Restart");
         cleanBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cleanBtnActionPerformed(evt);
@@ -288,7 +287,7 @@ public class FutoshikiInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //verify the contraints if is correct or not
-        if(sc.verifyContraintes(grille, dimension))
+        if(sc.verifyConstraints(grille, dimension))
             System.out.println("Correct");
         else
             System.out.println("!!Not correct");
