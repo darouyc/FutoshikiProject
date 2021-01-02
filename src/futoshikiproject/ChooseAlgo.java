@@ -7,7 +7,10 @@ package futoshikiproject;
 
 import Solution.SolveProblem;
 import csp.ST;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,11 +29,13 @@ public class ChooseAlgo extends javax.swing.JFrame {
     JTextField[][]  grille; 
     SolveProblem sc; 
     JPanel grillePn;
+    JLabel timeLbl;
+    JLabel lblTime;
     public ChooseAlgo() {
       
         initComponents();
     }
-    public ChooseAlgo(int dimension, JTextField [][] grille, SolveProblem sc,JPanel grillePn) {
+    public ChooseAlgo(int dimension, JTextField [][] grille, SolveProblem sc,JPanel grillePn, JLabel TimeLbl, JLabel lblTime ) {
          initComponents();
          // center JFrame
          setLocationRelativeTo(null);
@@ -39,7 +44,8 @@ public class ChooseAlgo extends javax.swing.JFrame {
         this.grille = grille;
         this.sc = sc;
         this.grillePn = grillePn;
-       
+        this.timeLbl = TimeLbl;
+        this.lblTime = lblTime;
     }
    
 
@@ -78,7 +84,7 @@ public class ChooseAlgo extends javax.swing.JFrame {
         amelCombo.setBackground(new java.awt.Color(0, 102, 102));
         amelCombo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         amelCombo.setForeground(new java.awt.Color(255, 255, 255));
-        amelCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Forward checking", "AC-1" }));
+        amelCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simple", "Forward checking", "AC-1" }));
 
         chooseBtn.setBackground(new java.awt.Color(153, 153, 0));
         chooseBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,7 +150,7 @@ public class ChooseAlgo extends javax.swing.JFrame {
         choice.add((String) comboVariableChoice.getSelectedItem());
         choice.add((String) domainCombo.getSelectedItem());
         choice.add((String) amelCombo.getSelectedItem());
-        
+            long startTime = System.currentTimeMillis();
         // get result 
          ST<String, String> result=sc.solve(choice); 
                 if(result!=null)
@@ -179,7 +185,16 @@ public class ChooseAlgo extends javax.swing.JFrame {
         }else{
         System.out.println("pas de solution");
         }
+        long stopTime = System.currentTimeMillis();
+        NumberFormat formatter = new DecimalFormat("#0.00000");
+ 
+        
+        System.out.println("++++++"+ formatter.format((stopTime - startTime)/ 1000d)+"++++++");
+        String time = formatter.format((stopTime - startTime)/ 1000d).toString();
                 //disappear ChooseAlgo JFrame
+                this.timeLbl.setVisible(true);
+                this.lblTime.setVisible(true);
+                this.timeLbl.setText(time);
                 dispose();
     }//GEN-LAST:event_chooseBtnActionPerformed
 

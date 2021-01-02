@@ -335,27 +335,22 @@ public class Backtracking {
         if(Methode.contains("Degree"))
         {
             withDEGREES = true;
-            System.out.println("*******************work with Degree*******************");
         }
         if(Methode.contains("MRV"))
         {
             withMRV =true;
-            System.out.println("*******************work with MRV*******************");
         }
         if(Methode.contains("LCV"))
         {
            withLCV = true;
-           System.out.println("*******************work with LCV*******************");
         }
         if(Methode.contains("forward checking"))
         {
            withFC = true;
-           System.out.println("*******************work with forward checking*******************");
         }
         if(Methode.contains("AC-1"))
         {
            withAC1 = true;
-           System.out.println("*******************work with AC-1*******************");
         }  
     }
 }

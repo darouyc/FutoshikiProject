@@ -500,22 +500,16 @@ public class SolveProblem {
                 easyGrille[2][1].setEditable(false);
                 easyGrille[2][2].setText("3");
                 easyGrille[2][2].setEditable(false);
-                easyGrille[4][3].setText("<");
-                easyGrille[4][3].setEditable(false);
                 easyGrille[5][0].setText("⋁");
                 easyGrille[5][0].setEditable(false);
                 easyGrille[5][2].setText("⋁");
                 easyGrille[5][2].setEditable(false);
                 easyGrille[5][6].setText("⋁");
                 easyGrille[5][6].setEditable(false);
-                easyGrille[6][5].setText("<");
-                easyGrille[6][5].setEditable(false);
                 break;
             case 6:
                 easyGrille[0][4].setText("1");
                 easyGrille[0][4].setEditable(false);
-                easyGrille[1][10].setText("⋀");
-                easyGrille[1][10].setEditable(false);
                 easyGrille[2][2].setText("2");
                 easyGrille[2][2].setEditable(false);
                 easyGrille[3][2].setText("⋀");
@@ -524,14 +518,10 @@ public class SolveProblem {
                 easyGrille[4][6].setEditable(false);
                 easyGrille[4][9].setText(">");
                 easyGrille[4][9].setEditable(false);
-                easyGrille[5][8].setText("⋀");
-                easyGrille[5][8].setEditable(false);
                 easyGrille[7][6].setText("⋁");
                 easyGrille[7][6].setEditable(false);
                 easyGrille[7][8].setText("⋀");
                 easyGrille[7][8].setEditable(false);
-                easyGrille[8][1].setText(">");
-                easyGrille[8][1].setEditable(false);
                 easyGrille[9][2].setText("⋁");
                 easyGrille[9][2].setEditable(false);
                 easyGrille[9][6].setText("⋁");
@@ -553,8 +543,6 @@ public class SolveProblem {
                 easyGrille[1][4].setEditable(false);
                 easyGrille[1][8].setText("⋁");
                 easyGrille[1][8].setEditable(false);
-                easyGrille[2][7].setText(">");
-                easyGrille[2][7].setEditable(false);
                 easyGrille[2][9].setText(">");
                 easyGrille[2][9].setEditable(false);
                 easyGrille[2][12].setText("6");
@@ -571,18 +559,12 @@ public class SolveProblem {
                 easyGrille[6][3].setEditable(false);
                 easyGrille[6][6].setText("1");
                 easyGrille[6][6].setEditable(false);
-                easyGrille[8][6].setText("7");
-                easyGrille[8][6].setEditable(false);
                 easyGrille[8][11].setText(">");
                 easyGrille[8][11].setEditable(false);
                 easyGrille[9][0].setText("⋀");
                 easyGrille[9][0].setEditable(false);
                 easyGrille[10][5].setText("<");
                 easyGrille[10][5].setEditable(false);
-                easyGrille[10][7].setText(">");
-                easyGrille[10][7].setEditable(false);
-                easyGrille[11][6].setText("⋀");
-                easyGrille[11][6].setEditable(false);
                 easyGrille[11][8].setText("⋁");
                 easyGrille[11][8].setEditable(false);
                
@@ -590,8 +572,6 @@ public class SolveProblem {
                 case 8:
                 easyGrille[0][5].setText("<");
                 easyGrille[0][5].setEditable(false);
-                easyGrille[0][7].setText(">");
-                easyGrille[0][7].setEditable(false);
                 easyGrille[0][11].setText(">");
                 easyGrille[0][11].setEditable(false);
                 easyGrille[1][2].setText("⋁");
@@ -630,8 +610,6 @@ public class SolveProblem {
                 easyGrille[8][9].setEditable(false);
                 easyGrille[9][0].setText("⋀");
                 easyGrille[9][0].setEditable(false);
-                easyGrille[9][2].setText("⋀");
-                easyGrille[9][2].setEditable(false);
                 easyGrille[9][6].setText("⋀");
                 easyGrille[9][6].setEditable(false);
                 easyGrille[9][3].setText("<");
@@ -642,22 +620,14 @@ public class SolveProblem {
                 easyGrille[10][3].setEditable(false);
                 easyGrille[10][13].setText(">");
                 easyGrille[10][13].setEditable(false);
-                easyGrille[12][3].setText("<");
-                easyGrille[12][3].setEditable(false);
                 easyGrille[12][5].setText("<");
                 easyGrille[12][5].setEditable(false);
                 easyGrille[12][8].setText("4");
                 easyGrille[12][8].setEditable(false);
-                easyGrille[12][11].setText(">");
-                easyGrille[12][11].setEditable(false);
                 easyGrille[12][12].setText("6");
                 easyGrille[12][12].setEditable(false);
-                easyGrille[13][8].setText("⋁");
-                easyGrille[13][8].setEditable(false);
                 easyGrille[13][10].setText("⋀");
                 easyGrille[13][10].setEditable(false);
-                easyGrille[14][5].setText("<");
-                easyGrille[14][5].setEditable(false);
                 
                 
                 break;
@@ -727,12 +697,8 @@ public class SolveProblem {
                 normalGrille[9][4].setText("⋁");
                 normalGrille[9][4].setEditable(false);
                 normalGrille[9][8].setText("⋁");
-                normalGrille[9][8].setEditable(false);
-                normalGrille[10][1].setText("<");
                 normalGrille[10][1].setEditable(false);
                 normalGrille[10][4].setText("4");
-                normalGrille[10][4].setEditable(false);
-                normalGrille[10][5].setText(">");
                 normalGrille[10][5].setEditable(false);
                 normalGrille[10][9].setText(">");
                 normalGrille[10][9].setEditable(false);
@@ -761,16 +727,12 @@ public class SolveProblem {
                 normalGrille[5][0].setEditable(false);
                 normalGrille[5][4].setText("⋀");
                 normalGrille[5][4].setEditable(false);
-                normalGrille[6][1].setText("<");
-                normalGrille[6][1].setEditable(false);
                 normalGrille[6][9].setText("<");
                 normalGrille[6][9].setEditable(false);
                 normalGrille[6][12].setText("7");
                 normalGrille[6][12].setEditable(false);
                 normalGrille[7][4].setText("⋁");
                 normalGrille[7][4].setEditable(false);
-                normalGrille[7][6].setText("⋀");
-                normalGrille[7][6].setEditable(false);
                 normalGrille[8][2].setText("3");
                 normalGrille[8][2].setEditable(false);
                 normalGrille[8][12].setText("5");
@@ -781,14 +743,10 @@ public class SolveProblem {
                 normalGrille[9][8].setEditable(false);
                 normalGrille[10][4].setText("5");
                 normalGrille[10][4].setEditable(false);
-                normalGrille[11][2].setText("⋀");
-                normalGrille[11][2].setEditable(false);
                 normalGrille[11][4].setText("⋁");
                 normalGrille[11][4].setEditable(false);
                 normalGrille[11][12].setText("⋀");
                 normalGrille[11][12].setEditable(false);
-                normalGrille[12][7].setText(">");
-                normalGrille[12][7].setEditable(false);
                 
                 break;
                 case 8:
@@ -802,16 +760,12 @@ public class SolveProblem {
                 normalGrille[1][6].setEditable(false);
                 normalGrille[2][1].setText("<");
                 normalGrille[2][1].setEditable(false);
-                normalGrille[2][9].setText(">");
-                normalGrille[2][9].setEditable(false);
                 normalGrille[2][13].setText("<");
                 normalGrille[2][13].setEditable(false);
                 normalGrille[3][2].setText("⋀");
                 normalGrille[3][2].setEditable(false);
                 normalGrille[3][6].setText("⋁");
                 normalGrille[3][6].setEditable(false);
-                normalGrille[3][8].setText("⋁");
-                normalGrille[3][8].setEditable(false);
                 normalGrille[4][2].setText("7");
                 normalGrille[4][2].setEditable(false);
                 normalGrille[4][5].setText("<");
@@ -824,14 +778,10 @@ public class SolveProblem {
                 normalGrille[5][2].setEditable(false);
                 normalGrille[5][8].setText("⋁");
                 normalGrille[5][8].setEditable(false);
-                normalGrille[5][14].setText("⋀");
-                normalGrille[5][14].setEditable(false);
                 normalGrille[6][1].setText("<");
                 normalGrille[6][1].setEditable(false);
                 normalGrille[6][3].setText(">");
                 normalGrille[6][3].setEditable(false);
-                normalGrille[6][11].setText("<");
-                normalGrille[6][11].setEditable(false);
                 normalGrille[6][12].setText("5");
                 normalGrille[6][12].setEditable(false);
                 normalGrille[10][6].setText("6");
@@ -840,8 +790,6 @@ public class SolveProblem {
                 normalGrille[11][2].setEditable(false);
                 normalGrille[11][6].setText("⋁");
                 normalGrille[11][6].setEditable(false);
-                normalGrille[12][3].setText("<");
-                normalGrille[12][3].setEditable(false);
                 normalGrille[12][8].setText("7");
                 normalGrille[12][8].setEditable(false);
                 normalGrille[12][10].setText("4");
@@ -898,8 +846,6 @@ public class SolveProblem {
                 trickyGrille[0][7].setEditable(false);
                 trickyGrille[1][8].setText("⋁");
                 trickyGrille[1][8].setEditable(false);
-                trickyGrille[3][4].setText("⋀");
-                trickyGrille[3][4].setEditable(false);
                 trickyGrille[3][6].setText("⋀");
                 trickyGrille[3][6].setEditable(false);
                 trickyGrille[5][6].setText("⋀");
@@ -926,8 +872,6 @@ public class SolveProblem {
                 trickyGrille[1][10].setEditable(false);
                 trickyGrille[2][0].setText("3");
                 trickyGrille[2][0].setEditable(false);
-                trickyGrille[3][2].setText("⋁");
-                trickyGrille[3][2].setEditable(false);
                 trickyGrille[4][1].setText("<");
                 trickyGrille[4][1].setEditable(false);
                 trickyGrille[4][3].setText(">");
@@ -944,16 +888,12 @@ public class SolveProblem {
                 trickyGrille[6][7].setEditable(false);
                 trickyGrille[7][2].setText("⋀");
                 trickyGrille[7][2].setEditable(false);
-                trickyGrille[7][4].setText("⋁");
-                trickyGrille[7][4].setEditable(false);
                 trickyGrille[7][10].setText("⋁");
                 trickyGrille[7][10].setEditable(false);
                 trickyGrille[8][5].setText("<");
                 trickyGrille[8][5].setEditable(false);
                 trickyGrille[9][0].setText("⋀");
                 trickyGrille[9][0].setEditable(false);
-                trickyGrille[9][10].setText("⋀");
-                trickyGrille[9][10].setEditable(false);
     
     
                 break;
@@ -974,8 +914,6 @@ public class SolveProblem {
                 trickyGrille[6][9].setEditable(false);
                 trickyGrille[7][0].setText("⋁");
                 trickyGrille[7][0].setEditable(false);
-                trickyGrille[8][3].setText("<");
-                trickyGrille[8][3].setEditable(false);
                 trickyGrille[9][0].setText("⋁");
                 trickyGrille[9][0].setEditable(false);
                 trickyGrille[9][4].setText("⋀");
@@ -986,20 +924,14 @@ public class SolveProblem {
                 trickyGrille[10][5].setEditable(false);
                 trickyGrille[10][9].setText(">");
                 trickyGrille[10][9].setEditable(false);
-                trickyGrille[10][11].setText(">");
-                trickyGrille[10][11].setEditable(false);
                 trickyGrille[11][0].setText("⋁");
                 trickyGrille[11][0].setEditable(false);
                 trickyGrille[11][2].setText("⋁");
                 trickyGrille[11][2].setEditable(false);
                 trickyGrille[12][1].setText(">");
                 trickyGrille[12][1].setEditable(false);
-                trickyGrille[12][3].setText(">");
-                trickyGrille[12][3].setEditable(false);
                 trickyGrille[12][5].setText(">");
                 trickyGrille[12][5].setEditable(false);
-                trickyGrille[12][11].setText("<");
-                trickyGrille[12][11].setEditable(false);
                 
                 break;
                 case 8:
@@ -1009,14 +941,10 @@ public class SolveProblem {
                 trickyGrille[1][6].setEditable(false);
                 trickyGrille[1][14].setText("⋁");
                 trickyGrille[1][14].setEditable(false);
-                trickyGrille[2][1].setText("<");
-                trickyGrille[2][1].setEditable(false);
                 trickyGrille[2][2].setText("5");
                 trickyGrille[2][2].setEditable(false);
                 trickyGrille[3][6].setText("⋁");
                 trickyGrille[3][6].setEditable(false);
-                trickyGrille[3][10].setText("⋁");
-                trickyGrille[3][10].setEditable(false);
                 trickyGrille[4][0].setText("5");
                 trickyGrille[4][0].setEditable(false);
                 trickyGrille[4][1].setText(">");
@@ -1025,8 +953,6 @@ public class SolveProblem {
                 trickyGrille[4][12].setEditable(false);
                 trickyGrille[5][6].setText("⋁");
                 trickyGrille[5][6].setEditable(false);
-                trickyGrille[5][10].setText("⋁");
-                trickyGrille[5][10].setEditable(false);
                 trickyGrille[5][12].setText("⋁");
                 trickyGrille[5][12].setEditable(false);
                 trickyGrille[5][14].setText("⋁");
@@ -1035,8 +961,6 @@ public class SolveProblem {
                 trickyGrille[6][9].setEditable(false);
                 trickyGrille[7][0].setText("⋀");
                 trickyGrille[7][0].setEditable(false);
-                trickyGrille[7][2].setText("⋀");
-                trickyGrille[7][2].setEditable(false);
                 trickyGrille[7][8].setText("⋁");
                 trickyGrille[7][8].setEditable(false);
                 trickyGrille[8][3].setText("<");
@@ -1049,22 +973,14 @@ public class SolveProblem {
                 trickyGrille[8][14].setEditable(false);
                 trickyGrille[9][14].setText("⋀");
                 trickyGrille[9][14].setEditable(false);
-                trickyGrille[10][10].setText("1");
-                trickyGrille[10][10].setEditable(false);
                 trickyGrille[11][8].setText("⋁");
                 trickyGrille[11][8].setEditable(false);
                 trickyGrille[11][12].setText("⋁");
                 trickyGrille[11][12].setEditable(false);
                 trickyGrille[12][12].setText("7");
                 trickyGrille[12][12].setEditable(false);
-                trickyGrille[13][2].setText("⋀");
-                trickyGrille[13][2].setEditable(false);
                 trickyGrille[13][6].setText("⋁");
                 trickyGrille[13][6].setEditable(false);
-                trickyGrille[13][10].setText("⋀");
-                trickyGrille[13][10].setEditable(false);
-                trickyGrille[14][1].setText("<");
-                trickyGrille[14][1].setEditable(false);
                 trickyGrille[14][2].setText("6");
                 trickyGrille[14][2].setEditable(false);
                 trickyGrille[14][14].setText("5");

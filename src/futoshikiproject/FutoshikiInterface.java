@@ -28,6 +28,7 @@ public class FutoshikiInterface extends javax.swing.JFrame {
     public FutoshikiInterface() {
         
         initComponents();
+        TimeLbl.setVisible(false);
         setLocationRelativeTo(null);
     }
 
@@ -49,6 +50,8 @@ public class FutoshikiInterface extends javax.swing.JFrame {
         Futoshiki = new java.awt.Label();
         startBtn = new javax.swing.JButton();
         comboLevel = new javax.swing.JComboBox<>();
+        TimeLbl = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +136,14 @@ public class FutoshikiInterface extends javax.swing.JFrame {
             }
         });
 
+        TimeLbl.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        TimeLbl.setForeground(new java.awt.Color(255, 0, 0));
+        TimeLbl.setEnabled(false);
+
+        lblTime.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        lblTime.setText("Time");
+        lblTime.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,16 +166,26 @@ public class FutoshikiInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(grilleScPan, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(10, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(TimeLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(146, 146, 146))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Futoshiki, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addComponent(grilleScPan, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TimeLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
                         .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -172,13 +193,13 @@ public class FutoshikiInterface extends javax.swing.JFrame {
                             .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(startBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addComponent(verifyBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addComponent(solutionBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addComponent(cleanBtn)
-                        .addContainerGap(73, Short.MAX_VALUE))))
+                        .addContainerGap(93, Short.MAX_VALUE))))
         );
 
         comboLevel.getAccessibleContext().setAccessibleName("");
@@ -196,7 +217,8 @@ public class FutoshikiInterface extends javax.swing.JFrame {
     public void initialize()
     {
         int index = choiceCombo.getSelectedIndex(); // get Combobox value   
-        
+        this.TimeLbl.setVisible(false);
+        this.lblTime.setVisible(false);
         //get dimension
         switch (index) {
             case 0:
@@ -291,13 +313,14 @@ public class FutoshikiInterface extends javax.swing.JFrame {
             System.out.println("Correct");
         else
             System.out.println("!!Not correct");
+        
     }//GEN-LAST:event_verifyBtnActionPerformed
 
     private void solutionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solutionBtnActionPerformed
         // TODO add your handling code here:
             
             // display JFrame ChooseAlgo for getting algorithms 
-            ChooseAlgo choice = new ChooseAlgo( dimension, grille, sc, grillePn);
+            ChooseAlgo choice = new ChooseAlgo( dimension, grille, sc, grillePn, TimeLbl, lblTime);
             choice.setVisible(true);
 
     }//GEN-LAST:event_solutionBtnActionPerformed
@@ -350,11 +373,13 @@ public class FutoshikiInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label Futoshiki;
+    private javax.swing.JLabel TimeLbl;
     private javax.swing.JComboBox<String> choiceCombo;
     private javax.swing.JButton cleanBtn;
     private javax.swing.JComboBox<String> comboLevel;
     private javax.swing.JPanel grillePn;
     private javax.swing.JScrollPane grilleScPan;
+    private javax.swing.JLabel lblTime;
     private javax.swing.JButton solutionBtn;
     private javax.swing.JButton startBtn;
     private javax.swing.JButton verifyBtn;
