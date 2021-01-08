@@ -150,7 +150,8 @@ public class ChooseAlgo extends javax.swing.JFrame {
         choice.add((String) comboVariableChoice.getSelectedItem());
         choice.add((String) domainCombo.getSelectedItem());
         choice.add((String) amelCombo.getSelectedItem());
-            long startTime = System.currentTimeMillis();
+            
+        long startTime = System.currentTimeMillis();
         // get result 
          ST<String, String> result=sc.solve(choice); 
                 if(result!=null)
