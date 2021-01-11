@@ -64,7 +64,6 @@ public class Backtracking {
                 {
                     int variableNumber = Integer.parseInt(value);
                     int supNumber = Integer.parseInt(config.get(nomSommet));
-
                     if(supNumber <= variableNumber) // Compare
                         return false;
                 }
@@ -76,7 +75,6 @@ public class Backtracking {
                 {
                     int variableNumber = Integer.parseInt(value);
                     int infNumber = Integer.parseInt(config.get(nomSommet));
-
                     if(infNumber > variableNumber) // compare
                         return false;
                 }
@@ -127,7 +125,7 @@ public class Backtracking {
         Collections.sort(list, new cmpComptage());
         return ((Map.Entry<String, Integer>)list.get(0)).getKey();
     }
-    /*---------------------- MVR ------------------------------*/
+    /*---------------------- MRV ------------------------------*/
     public static String getVariableMRV(ST<String, SET<String>> domain , ST<String, String> config){
         // Stocker (variable, taille du domaine)
         TreeMap<String, Integer> compteParVariable = new TreeMap<>();
@@ -142,8 +140,7 @@ public class Backtracking {
     }
     /*---------------------- Degree + MRV ------------------------------*/
     public static String getVariableDegresMRV(Graph g, ST<String, SET<String>> domain , ST<String, String> config)
-    {
-        // Stocker (variable, nombre de contraintes)
+    {// Stocker (variable, nombre de contraintes)
         TreeMap<String, Integer> compteParVariable1 = new TreeMap<>();
         // Stocker (variable, nombre de valeurs)
         TreeMap<String, Integer> compteParVariable2 = new TreeMap<>();
@@ -157,7 +154,6 @@ public class Backtracking {
         Integer compte0 = ((Map.Entry<String, Integer>)list.get(0)).getValue();
         Iterator it = list.iterator();
         // register variables with the number of degrees
-
         while(it.hasNext())
         {
             Map.Entry entree = (Map.Entry)it.next();
@@ -183,8 +179,7 @@ public class Backtracking {
     }
     /*---------------------- Domaine d'une variable avec LCV ------------------------------*/
     public static List<String> orderDomainValueLCV(String variable,Graph g, ST<String, SET<String>> domain) 
-    {
-    // Stocker (variable, nombre de contraintes)
+    { // Stocker (variable, nombre de contraintes)
     TreeMap< String, Integer> compteParValeur = new TreeMap<>();
     //return the SET of domain values for the variable
     SET<String> vu = domain.get(variable);
@@ -213,11 +208,11 @@ public class Backtracking {
     {
         Map.Entry<String, Integer> entree = (Map.Entry<String, Integer>)it.next();
         vals.add((String)entree.getKey());
-    }
-    return vals;
+    }return vals;
     }
     /*---------------------- Forward Checking ------------------------------*/
-    public static SET<String> forwardChecking(String u , String variable , Graph g ,ST<String, String> config ,ST<String, SET<String>> domain )
+    public static SET<String> forwardChecking(String u , String variable , Graph g ,ST<String, String> config 
+            ,ST<String, SET<String>> domain )
     { 
         // used values
         SET<String> vars = new SET<>();
@@ -233,11 +228,9 @@ public class Backtracking {
     } 
     /*---------------------- AC1 ------------------------------*/
     public static void AC1(Graph g, ST<String, String> config, ST<String, SET<String>> domain)
-    {
-        boolean changement;
+    {boolean changement;
         do 
-        {
-            changement = false;
+        {changement = false;
             for(String variable : config)
             {
                 if(config.get(variable).equalsIgnoreCase("")) // empty values
@@ -245,8 +238,7 @@ public class Backtracking {
                     for(String adj : g.adjacentTo(variable))
                     {
                         if(config.get(adj).equalsIgnoreCase("")) //empty adj 
-                        {
-                            // Pour éviter l'erreur : Exception in thread "main"
+                        {// Pour éviter l'erreur : Exception in thread "main"
                             // java.util.ConcurrentModificationException
                             SET<String> valeurs = new SET<>(domain.get(variable).getSet());
                             for(String val : valeurs)
@@ -267,11 +259,9 @@ public class Backtracking {
         } while(changement);
     }
     
-    public static ST<String, String> backtracking(ST<String, String> config, ST<String, SET<String>> domain, Graph g, ArrayList<String> Methode){
+    public static ST<String, String> backtracking(ST<String, String> config, ST<String, SET<String>> domain, 
+            Graph g, ArrayList<String> Methode){
        
-     
-        // -------------------------------------- Backtracking simple --------------------------------------       
-        
         // if the game is finish
         if(complete(config))
                 return config;
@@ -312,14 +302,12 @@ public class Backtracking {
                 }
                 if(withFC)
                     variablesTouchees = forwardChecking(u, v, g, config, domain);
-                //--------------------------------------------------------
                 if(withAC1 || withFC)
                     result = backtracking(config, tmpDomain, g, Methode);
                 else
                     result = backtracking(config, domain, g, Methode);
                 if(result != null)
                     return result;
-
                 config.put(v,""); 
                 if(withFC)
                     for(String var : variablesTouchees)

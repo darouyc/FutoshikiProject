@@ -24,17 +24,16 @@ import javax.swing.JTextField;
  */
 public class SolveProblem {
 
-    private ST<String, SET<String>> domainTable;
-    private int[][] valGrille;
-    char[][] contraintesHoriz;
-    char[][] contraintesVert;
-    Graph graph = new Graph();
-    boolean simpleBacktracking=true;
-    int dimGrille;
-    int dimension;
-    JTextField[][] grille;
-    ST<String, String> config;
-    ArrayList<String> choices;
+    private ST<String, SET<String>> domainTable; //domain of variables
+    private int[][] valGrille; //matrix containt values 
+    char[][] contraintesHoriz; //horizontal constraint < && >
+    char[][] contraintesVert;  //vertical constraint ⋀ && ⋁
+    Graph graph = new Graph(); //initial graph
+    int dimGrille; // dimension of grille contain values, horizontal constraint and vertical constraint
+    int dimension; // dimension of grille contain only values(4,5,6,7,8) 
+    JTextField[][] grille; //grille displayed inside JPanel
+    ST<String, String> config; // values 
+    ArrayList<String> choices; //algorithme choosed by user
 
     public SolveProblem(String level, JTextField[][] grille, int dimension) {
         // --- Initialize grille values and constraint      
@@ -121,7 +120,7 @@ public class SolveProblem {
                         contraintesHoriz[i / 2][(j - 1) / 2] = contrHoriz;
                         
                     } 
-                    // ---- Vertical constraints : ⋀ et ⋁ ---
+                    // ---- Vertical constraints : ⋀ and ⋁ ---
                     else if (i % 2 != 0 && j % 2 == 0) 
                     {
                         char contrVert = grille[i][j].getText().charAt(0);
@@ -137,7 +136,7 @@ public class SolveProblem {
             }
         }
 
-        // Verify constaint between lines and columns 
+        // Verify constaint in lines and columns 
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 int val = valGrille[i][j];
@@ -251,7 +250,7 @@ public class SolveProblem {
                             }
                         }
                     }
-                    // low
+                    //  buttom
                     if (i != dimension - 1) 
                     {
                         if (contraintesVert[i][j] != ' ') //if cell not empty
@@ -315,15 +314,12 @@ public class SolveProblem {
                 // check vertical constraint if is not empty plus column is not first
                 if (i > 0 && (contraintesVert[i - 1][j] == '⋀' || contraintesVert[i - 1][j] == '⋁')) {
                     System.out.println("Found contraites vert1 at " + i + "," + j + " = " + contraintesVert[i - 1][j]);
-
                     boolean cond = contraintesVert[i - 1][j] != '⋀';
                     
                     String val1 = cond ? "s" + (i - 1) + "" + j : "s" + i + "" + j;
                     String val2 = cond ? "x" + i + "" + j : "x" + (i - 1) + "" + j;
-                    
                     // register sup value with 'S' character in graph
                     graph.addEdge(val2, val1);
-                    
                     //register inf value with 'i' character in graph
                     val1 = val1.replace("s", "x");
                     val2 = val2.replace("x", "i");
@@ -334,13 +330,11 @@ public class SolveProblem {
                   // check vertical constraint if is not empty plus column is not first
                 if (i < dimension - 1 && (contraintesVert[i][j] == '⋀' || contraintesVert[i][j] == '⋁')) {
                     System.out.println("Found contraites vert2 at " + i + "," + j + " = " + contraintesVert[i][j]);
-
                     boolean cond = contraintesVert[i][j] != '⋀';
                     
                     // register sup value with 'S' character in graph
                     String val1 = cond ? "s" + i + "" + j : "s" + (i + 1) + "" + j;
                     String val2 = cond ? "x" + (i + 1) + "" + j : "x" + i + "" + j;
-
                     graph.addEdge(val2, val1);
                     
                     //register inf value with 'i' character in graph
@@ -352,12 +346,10 @@ public class SolveProblem {
                  // check horizantal constraint if is not empty plus line is not first
                 if (j < dimension - 1 && (contraintesHoriz[i][j] == '<' || contraintesHoriz[i][j] == '>')) {
                     System.out.println("Found contraites at " + i + "," + j + " = " + contraintesHoriz[i][j]);
-
                     boolean cond = contraintesHoriz[i][j] == '<';
                      // register sup value with 'S' character in graph
                     String val1 = cond ? "s" + i + "" + (j + 1) : "s" + i + "" + j;
                     String val2 = cond ? "x" + i + "" + j : "x" + i + "" + ( j + 1 );
-
                     graph.addEdge(val2, val1);
 
                     val1 = val1.replace("s", "x");
@@ -401,8 +393,9 @@ public class SolveProblem {
         {
             for (int j = 0; j < dimension; j++) // Line
             {
+                // Domaine if cell not empty
                 if (valGrille[i][j] != 0) {
-                    ((SET<String>) domains[i][j]).add(new String(String.valueOf(valGrille[i][j]))); // Domaine avec une seule valeur (case remplie)
+                    ((SET<String>) domains[i][j]).add(new String(String.valueOf(valGrille[i][j]))); 
                 } else {
                     for (int k = 1; k <= dimension; k++) {
                         ((SET<String>) domains[i][j]).add("" + k);
