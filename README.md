@@ -1,5 +1,5 @@
 # FutoshikiProject
-Ce proget est réalisé par DAROUY Chaimae, Encadré par: Pr.AIT KBIR.
+Ce projet est réalisé par DAROUY Chaimae, Encadré par: Pr.AIT KBIR.
 
 ## But: 
 Développer une application Java du Jeu Futoshiki en employant les méthodes du backtracking pour trouver la solution du jeu
